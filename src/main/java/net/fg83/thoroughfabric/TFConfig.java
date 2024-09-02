@@ -3,6 +3,7 @@ package net.fg83.thoroughfabric;
 public class TFConfig {
     // Step Counts
     public int grassReps = 20;
+    public int dirtReps = 30;
     public int coarseDirtReps = 50;
     public boolean pathsWear = true;
     public int pathReps = 1000;

@@ -127,11 +127,10 @@ public class Footstep {
         Block block = world.getBlockState(pos).getBlock();
 
         // Determine the maximum number of steps based on the block type
-        if (block == Blocks.GRASS_BLOCK ||
-                block == Blocks.DIRT ||
-                block == Blocks.MYCELIUM ||
-                block == Blocks.PODZOL) {
+        if (block == Blocks.GRASS_BLOCK || block == Blocks.MYCELIUM || block == Blocks.PODZOL) {
             maxSteps = config.grassReps;
+        } else if (block == Blocks.DIRT || block == Blocks.ROOTED_DIRT) {
+            maxSteps = config.dirtReps;
         } else if (block == Blocks.COARSE_DIRT) {
             maxSteps = config.coarseDirtReps;
         } else if (block == Blocks.DIRT_PATH && config.pathsWear) {
@@ -158,13 +157,14 @@ public class Footstep {
         BlockState newState = currentState;
 
         // Determine the new block state based on the current block state
-        if (currentState.isOf(Blocks.GRASS_BLOCK) || currentState.isOf(Blocks.DIRT) ||
-                currentState.isOf(Blocks.MYCELIUM) || currentState.isOf(Blocks.PODZOL)) {
+        if (currentState.isOf(Blocks.GRASS_BLOCK) || currentState.isOf(Blocks.MYCELIUM) || currentState.isOf(Blocks.PODZOL)) {
+            newState = Blocks.DIRT.getDefaultState();
+        } else if (currentState.isOf(Blocks.DIRT) || currentState.isOf(Blocks.ROOTED_DIRT)) {
             newState = Blocks.COARSE_DIRT.getDefaultState();
         } else if (currentState.isOf(Blocks.COARSE_DIRT)) {
             newState = Blocks.DIRT_PATH.getDefaultState();
         } else if (currentState.isOf(Blocks.DIRT_PATH)) {
-            newState = Blocks.COBBLESTONE_SLAB.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM);
+            newState = Blocks.STONE_SLAB.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM);
         }
 
         // Only change the block state if it differs from the current state, with a random chance
