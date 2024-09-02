@@ -26,6 +26,11 @@ public class StepCountData extends PersistentState {
      */
     public StepCountData() {}
 
+    public void setStepCount(BlockPos pos, int count) {
+        stepCounts.put(pos, count);
+        markDirty(); // Marks the state as dirty to indicate it has changed
+    }
+
     /**
      * Increments the step count for the given block position by a specified multiplier.
      *
@@ -33,8 +38,7 @@ public class StepCountData extends PersistentState {
      * @param multi The multiplier to increment by.
      */
     public void incrementStepCount(BlockPos pos, int multi) {
-        stepCounts.put(pos, stepCounts.getOrDefault(pos, 0) + multi);
-        markDirty(); // Marks the state as dirty to indicate it has changed
+        setStepCount(pos, getStepCount(pos) + multi);
     }
 
     /**
@@ -43,8 +47,7 @@ public class StepCountData extends PersistentState {
      * @param pos The block position.
      */
     public void resetStepCount(BlockPos pos) {
-        stepCounts.put(pos, 0);
-        markDirty(); // Marks the state as dirty to indicate it has changed
+        setStepCount(pos, 0);
     }
 
     /**

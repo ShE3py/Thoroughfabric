@@ -54,8 +54,10 @@ public class ConfigManager {
             }
         } else {
             config = new TFConfig(); // Create new config if file doesn't exist
-            saveConfig();
         }
+
+        // Allow for new keys to be defaulted
+        saveConfig();
     }
 
     /**

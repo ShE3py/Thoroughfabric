@@ -4,6 +4,7 @@ public class TFConfig {
     // Step Counts
     public int grassReps = 20;
     public int dirtReps = 30;
+    public int spreadReps = -5; // only transform dirt to grass/mycelium if reps + spreadReps <= 0
     public int coarseDirtReps = 50;
     public boolean pathsWear = true;
     public int pathReps = 1000;
